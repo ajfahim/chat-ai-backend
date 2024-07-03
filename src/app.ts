@@ -9,14 +9,12 @@ config();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173",  // Include localhost for local development
   "https://chat-ai-frontend-umber.vercel.app"
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin) return callback(null, true); // Allow requests with no origin
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
