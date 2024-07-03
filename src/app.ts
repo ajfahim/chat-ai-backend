@@ -22,6 +22,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //remove it in production
 app.use(morgan("dev"));
+app.use("/", (req, res) => {
+  res.send("hello");
+});
 
 app.use("/api/v1", appRouter);
 
