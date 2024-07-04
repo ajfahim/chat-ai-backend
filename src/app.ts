@@ -8,23 +8,7 @@ import appRouter from "./routes/index.js";
 config();
 const app = express();
 
-const allowedOrigins = ["https://chat-ai-frontend-umber.vercel.app"];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // Allow requests with no origin
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
-
-app.options("*", cors()); // Handle preflight requests
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
