@@ -20,6 +20,13 @@ app.use(
   })
 );
 
+// Logging middleware for debugging
+app.use((req, res, next) => {
+  console.log("Request Method:", req.method);
+  console.log("Request Headers:", req.headers);
+  next();
+});
+
 app.options(
   "*",
   cors({
@@ -32,13 +39,6 @@ app.options(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// Logging middleware for debugging
-app.use((req, res, next) => {
-  console.log("Request Method:", req.method);
-  console.log("Request Headers:", req.headers);
-  next();
-});
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
