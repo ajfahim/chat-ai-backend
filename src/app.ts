@@ -8,7 +8,27 @@ import appRouter from "./routes/index.js";
 config();
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://chat-ai-frontend-umber.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+
+// Handle preflight requests
+app.options(
+  "*",
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://chat-ai-frontend-umber.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
