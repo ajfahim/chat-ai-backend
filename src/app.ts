@@ -8,29 +8,29 @@ import appRouter from "./routes/index.js";
 config();
 const app = express();
 
-const allowedOrigins = [
-  "https://chat-ai-frontend-umber.vercel.app"
-];
+const allowedOrigins = ["https://chat-ai-frontend-umber.vercel.app"];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // Allow requests with no origin
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // Allow requests with no origin
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
-app.options('*', cors()); // Handle preflight requests
+app.options("*", cors()); // Handle preflight requests
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Remove it in production
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
