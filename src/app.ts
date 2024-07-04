@@ -6,8 +6,10 @@ import morgan from "morgan";
 import appRouter from "./routes/index.js";
 
 config();
+
 const app = express();
 
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   cors({
     origin: [
@@ -41,7 +43,6 @@ app.options(
 );
 
 app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Remove it in production
 if (process.env.NODE_ENV === "development") {
